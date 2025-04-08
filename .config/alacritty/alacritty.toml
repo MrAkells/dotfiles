@@ -1,0 +1,19 @@
+[env]
+WINIT_X11_SCALE_FACTOR = "1.0"
+
+[window]
+padding = { x = 10, y = 10 }
+opacity = 0.6
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+size = 13
+
+[terminal]
+shell = "/usr/bin/fish"
+
+[general]
+import = [
+    "~/.config/alacritty/themes/blood_moon.toml"
+]
+

@@ -1,0 +1,10 @@
+[Unit]
+Description=DWM Blocks Status Bar
+
+[Service]
+ExecStart=/home/mrakells/.local/bin/dwmblocks
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

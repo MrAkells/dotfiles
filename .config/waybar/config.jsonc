@@ -1,42 +1,42 @@
 // -*- mode: jsonc -*-
 {
     "layer": "top",
-    "spacing": 5,
-    
+    "spacing": 10,
+
     "modules-left": [
         "hyprland/workspaces",
-        "mpris"
+	"mpris"
     ],
     "modules-center": [
         "clock"
     ],
     "modules-right": [
-	    "tray",
+        "tray",
+        "cpu",
+        "memory",
         "wireplumber",
         "hyprland/language"
     ],
-
-    "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
-    },
+    
     "mpris": {
-        "format": "{title} - {artist}",
-        // "format-paused": " {title} - {artist}",
-        "max-length": 50,
-        "player": "spotify"
+	"player": "playerctld",
+	"format": "{title} - {artist}",
+	"format-stopped": "",
+	"max-length": 50
     },
-   
-    "tray": {
-        "spacing": 5
+
+    "cpu": {
+	"format": "cpu: {usage}%"
+    },
+    "memory": {
+	"format": "ram: {percentage}%"
     },
     "wireplumber": {
-        "format": "vol: {volume}%",
-        "on-click": "pavucontrol",
-        "max-volume": 150,
-        "scroll-step": 5
+	"format": "vol: {volume}%",
+	"on-click": "pavucontrol"
     },
+
     "hyprland/language": {
-        "format": "{short}"
+	"format": "{short}"
     }
 }

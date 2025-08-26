@@ -2,7 +2,7 @@
 WINIT_X11_SCALE_FACTOR = "1.0"
 
 [window]
-padding = { x = 10, y = 10 }
+padding = { x = 5, y = 5 }
 opacity = 0.6
 
 [font]

@@ -2,41 +2,98 @@
 {
     "layer": "top",
     "spacing": 10,
-
     "modules-left": [
         "hyprland/workspaces",
-	"mpris"
+        "mpris"
     ],
     "modules-center": [
-        "clock"
+        "clock",
+        "custom/weather"
     ],
     "modules-right": [
         "tray",
         "cpu",
         "memory",
+        "network",
         "wireplumber",
+        "wireplumber#source",
+        "battery",
         "hyprland/language"
     ],
-    
     "mpris": {
-	"player": "playerctld",
-	"format": "{title} - {artist}",
-	"format-stopped": "",
-	"max-length": 50
+        "player": "playerctld",
+        "format": "{title} - {artist}",
+        "format-stopped": "",
+        "max-length": 50
     },
-
+    "custom/weather": {
+        "format": "{}°",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "wttrbar --mph",
+        "return-type": "json"
+    },
     "cpu": {
-	"format": "cpu: {usage}%"
+        "format": "cpu: {usage}%",
+        "interval": 1,
+        "tooltip-format": "usage: {usage}%\ncores: {cores}\nfreq: {avg_frequency} MHz",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
     },
     "memory": {
-	"format": "ram: {percentage}%"
+        "format": "ram: {percentage}%",
+        "interval": 3,
+        "tooltip-format": "ram: {used:.1f}/{total:.1f} GiB\nswap: {swapUsed:.1f}/{swapTotal:.1f} GiB"
+    },
+    "network": {
+        "format-wifi": "net: {essid}",
+        "format-ethernet": "net: {ipaddr}/{cidr}",
+        "format-linked": "net: linked",
+        "format-disconnected": "",
+        "format-disabled": "",
+        "tooltip-format-wifi": "if: {ifname}\nssid: {essid}\nsignal: {signalStrength}% ({signaldBm} dBm)\nip: {ipaddr}\ngw: {gwaddr}",
+        "tooltip-format-ethernet": "if: {ifname}\nip: {ipaddr}/{cidr}\ngw: {gwaddr}",
+        "tooltip-format-disconnected": "no connection",
+        "max-length": 50,
+        "on-click": "iwgtk"
     },
     "wireplumber": {
-	"format": "vol: {volume}%",
-	"on-click": "pavucontrol"
+        // динаміки/навушники (Audio/Sink)
+        "format": "vol: {volume}%",
+        "format-muted": "vol: muted",
+        "tooltip-format": "{node_name}\nvol: {volume}%",
+        "scroll-step": 2,
+        "max-volume": 100,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
-
+    "wireplumber#source": {
+        // мікрофон (Audio/Source)
+        "node-type": "Audio/Source",
+        "format": "mic: {volume}%",
+        "format-muted": "mic: off",
+        "tooltip-format": "{node_name}\nmic: {volume}%",
+        "scroll-step": 2,
+        "max-volume": 100,
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "bat: {capacity}%",
+        "format-charging": "bat+: {capacity}%",
+        "format-full": "bat: full",
+        "format-alt": "bat: {capacity}% ({time})",
+        "tooltip-format": "{timeTo}\npower: {power} W",
+        "full-at": 96,
+        "interval": 60,
+        "max-length": 25
+    },
     "hyprland/language": {
-	"format": "{short}"
+        "format": "{short}"
     }
 }

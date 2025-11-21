@@ -4,8 +4,20 @@
     min-height: 0;
     margin: 0;
     padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: #cdd6f4;
+}
+
+window#waybar label.module,
+#workspaces button.active {
+    box-shadow: inset 0 -1px #ffffff;
 }
 
 #mpris.paused {
-  color: #888888;
+    color: #888888;
 }

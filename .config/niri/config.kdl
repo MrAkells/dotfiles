@@ -193,7 +193,7 @@ layout {
     // You can enable drop shadows for windows.
     shadow {
         // Uncomment the next line to enable shadows.
-        // on
+        on
 
         // By default, the shadow draws only around its window, and not behind it.
         // Uncomment this setting to make the shadow draw behind its window.
@@ -263,10 +263,8 @@ hotkey-overlay {
 // After enabling or disabling this, you need to restart the apps for this to take effect.
 prefer-no-csd
 
-// You can change the path where screenshots are saved.
-// A ~ at the front will be expanded to the home directory.
-// The path is formatted with strftime(3) to give you the screenshot date and time.
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+// Disable saving screenshots to disk
+screenshot-path null
 
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
@@ -289,11 +287,8 @@ animations {
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
 window-rule {
-    // This regular expression is intentionally made as specific as possible,
-    // since this is the default config, and we want no false positives.
-    // You can get away with just app-id="wezterm" if you want.
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
+    match app-id=r#"org.telegram.desktop$"#
+    default-column-width { proportion 0.33333; }
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
@@ -315,6 +310,15 @@ window-rule {
 
     // Use this instead if you want them visible on third-party screenshot tools.
     // block-out-from "screencast"
+}
+
+layer-rule {
+    match namespace="^noctalia-bar-content-.*$"
+    match at-startup=true
+
+    shadow {
+        on
+    }
 }
 
 // Example: enable rounded corners for all windows.

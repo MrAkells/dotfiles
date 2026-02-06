@@ -1,12 +1,11 @@
 # 📂 Dotfiles
 
-Personal dotfiles for a Linux setup built around [Hyprland](https://github.com/hyprwm/Hyprland).
+Personal dotfiles for a Linux setup built around [niri](https://github.com/YaLTeR/niri).
 
 ## 📦 Installation
 ```bash
-sudo pacman -S hyprland pipewire waybar mako wofi nemo mpv alacritty fish starship neovim
-git clone https://git.mrakells.com/MrAkells/dotfiles.git
-cp -r dotfiles/* ~/
+sudo pacman -S niri xwayland-satellite pipewire pipewire-pulse pipewire-alsa pipewire-jack nemo mpv alacritty fish starship neovim
+paru -S noctalia-shell
 ```
 
 ## 🖼️ Screenshots

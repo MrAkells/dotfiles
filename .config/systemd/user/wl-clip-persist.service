@@ -1,0 +1,13 @@
+[Unit]
+Description=Wayland clipboard persistence service
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=wl-clip-persist --clipboard regular
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target

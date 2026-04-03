@@ -1,3 +1,6 @@
+spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "flatpak" "run" "org.telegram.desktop" "-startintray"
+
 // Input devices and keyboard layout.
 input {
     keyboard {
@@ -80,12 +83,17 @@ animations {
 // Telegram default width.
 window-rule {
     match app-id=r#"org.telegram.desktop$"#
-    default-column-width { proportion 0.33333; }
+    default-column-width { proportion 0.2; }
 }
 
-// Firefox picture-in-picture opens as floating.
 window-rule {
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id="librewolf" title=".*LibreWolf$"
+    default-column-width { proportion 1.0; }
+}
+
+// LibreWolf picture-in-picture opens as floating.
+window-rule {
+    match app-id=r#"librewolf$"# title="^Picture-in-Picture$"
     open-floating true
 }
 

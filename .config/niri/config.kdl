@@ -1,5 +1,10 @@
+spawn-at-startup "pipewire"
 spawn-at-startup "qs" "-c" "noctalia-shell"
-spawn-at-startup "flatpak" "run" "org.telegram.desktop" "-startintray"
+
+cursor {
+    xcursor-theme "Qogir-white-cursors"
+    xcursor-size 24
+}
 
 // Input devices and keyboard layout.
 input {
@@ -21,10 +26,17 @@ input {
     }
 }
 
-// Built-in display settings.
+// Display settings.
+output "HDMI-A-1" {
+    mode "3840x2160@60"
+    scale 1.5
+    position x=0 y=0
+}
+
 output "eDP-1" {
     mode "1920x1200@60"
     scale 1.25
+    position x=512 y=1440
 }
 
 // Tiling layout and window appearance.
@@ -49,10 +61,6 @@ layout {
 
     border {
         width 2
-
-        active-color "#ffc87f"
-        inactive-color "#505050"
-        urgent-color "#9b0000"
     }
 
     shadow {
@@ -60,9 +68,10 @@ layout {
         softness 30
         spread 5
         offset x=0 y=5
-        color "#0007"
     }
 }
+
+include "noctalia-colors.kdl"
 
 // Keep the hotkey overlay hidden on startup.
 hotkey-overlay {
@@ -97,6 +106,23 @@ window-rule {
     open-floating true
 }
 
+// Nemo opens floating at 720p video size.
+window-rule {
+    match app-id=r#"(?i)nemo"#
+    open-floating true
+    default-column-width { fixed 1280; }
+    default-window-height { fixed 720; }
+}
+
+// Enable blur behind the Alacritty terminal.
+window-rule {
+    match app-id="^Alacritty$"
+
+    background-effect {
+        blur true
+    }
+}
+
 // Rounded window corners.
 window-rule {
     geometry-corner-radius 10
@@ -110,8 +136,8 @@ binds {
 
     // App launcher and session shortcuts.
     Super+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    Mod+E hotkey-overlay-title="Open File Manager: nemo" { spawn "nemo"; }
     Alt+Space hotkey-overlay-title="Run an Application: Noctalia Launcher" { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Volume key mappings through Noctalia IPC.
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call volume increase"; }
@@ -138,20 +164,10 @@ binds {
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
-
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
     Mod+Ctrl+Right { move-column-right; }
-    Mod+Ctrl+H     { move-column-left; }
-    Mod+Ctrl+J     { move-window-down; }
-    Mod+Ctrl+K     { move-window-up; }
-    Mod+Ctrl+L     { move-column-right; }
-
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
     Mod+Ctrl+Home { move-column-to-first; }
@@ -161,28 +177,16 @@ binds {
     Mod+Shift+Down  { focus-monitor-down; }
     Mod+Shift+Up    { focus-monitor-up; }
     Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+H     { focus-monitor-left; }
-    Mod+Shift+J     { focus-monitor-down; }
-    Mod+Shift+K     { focus-monitor-up; }
-    Mod+Shift+L     { focus-monitor-right; }
+    Mod+L hotkey-overlay-title="Lock the Screen" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
 
     Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
-    Mod+U              { focus-workspace-down; }
-    Mod+I              { focus-workspace-up; }
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-    Mod+Ctrl+U         { move-column-to-workspace-down; }
-    Mod+Ctrl+I         { move-column-to-workspace-up; }
 
     Mod+Shift+Page_Down { move-workspace-down; }
     Mod+Shift+Page_Up   { move-workspace-up; }
@@ -296,3 +300,5 @@ overview {
     off
   }
 }
+
+include "./noctalia.kdl"

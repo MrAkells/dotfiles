@@ -1,5 +1,5 @@
-spawn-at-startup "pipewire"
-spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-sh-at-startup "qs -c noctalia-shell"
+spawn-sh-at-startup "AyuGram -startintray"
 
 cursor {
     xcursor-theme "Qogir-white-cursors"
@@ -71,8 +71,6 @@ layout {
     }
 }
 
-include "noctalia-colors.kdl"
-
 // Keep the hotkey overlay hidden on startup.
 hotkey-overlay {
     skip-at-startup
@@ -91,8 +89,22 @@ animations {
 // Window rules.
 // Telegram default width.
 window-rule {
-    match app-id=r#"org.telegram.desktop$"#
+    match app-id=r#"com.ayugram.desktop$"#
     default-column-width { proportion 0.2; }
+}
+
+window-rule {
+    match title=r"^Extension: \(Bitwarden Password Manager\)"
+    open-floating true
+    default-column-width { proportion 0.25; }
+    default-window-height { proportion 0.45; }
+}
+
+window-rule {
+    match app-id="librewolf" title=r#".*Bitwarden.*"#
+    open-floating true
+    default-column-width { fixed 500; }
+    default-window-height { fixed 650; }
 }
 
 window-rule {

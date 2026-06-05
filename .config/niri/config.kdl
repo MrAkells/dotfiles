@@ -1,5 +1,6 @@
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-sh-at-startup "qs -c noctalia-shell"
-spawn-sh-at-startup "AyuGram -startintray"
+spawn-sh-at-startup "Telegram -startintray"
 
 cursor {
     xcursor-theme "Qogir-white-cursors"
@@ -89,7 +90,7 @@ animations {
 // Window rules.
 // Telegram default width.
 window-rule {
-    match app-id=r#"com.ayugram.desktop$"#
+    match app-id=r#"org.telegram.desktop$"#
     default-column-width { proportion 0.2; }
 }
 
@@ -290,8 +291,8 @@ binds {
     // Toggle keyboard shortcut inhibition.
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
-    // Quit niri.
-    Mod+Shift+E { quit; }
+    // Open Noctalia power menu.
+    Mod+Shift+E hotkey-overlay-title="Open Power Menu" { spawn-sh "qs -c noctalia-shell ipc call sessionMenu toggle"; }
     Ctrl+Alt+Delete { quit; }
 
     // Turn displays off until next input.
